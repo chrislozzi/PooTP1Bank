@@ -86,19 +86,30 @@ public class RemoteBankImpl <T,U,V> implements IRemoteBank<T,U,V>{
 			System.out.println("Numéro de compte " + idAccount + " : montant -> " + accounts.get(idAccount).amount);
 			return true;
 		} else {
+			System.out.println("Aucun compte associé.");
 			return false;
 		}
 	}
 	
 	@Override
-	public boolean withdraw(int idAccount, int idUser, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean withdraw(int idAccount, int idUser, double amount) { //attention au découvert autorisé
+		if(accounts.containsKey(idAccount) && amount <= accounts.get(idAccount).amount) {
+			accounts.get(idAccount).amount -= amount;
+			return true;
+		} else {
+			return false;
+		}
 	}
+	
 	@Override
-	public boolean transfert(int idUser, int idAccount1, int idAccount2, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean transfert(int idUser, int idAccount1, int idAccount2, double amount) { //attention au découvert autorisé
+		if(accounts.containsKey(idAccount1) && amount <= accounts.get(idAccount1).amount) {
+			accounts.get(idAccount1).amount -= amount;
+			accounts.get(idAccount2).amount += amount;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
