@@ -68,4 +68,35 @@ public class RemoteBankImpl <T,U,V> implements IRemoteBank<T,U,V>{
 		
 	}
 	
+	@Override
+	public boolean deposit(int idAccount, int idUser, double amount) {
+		if(amount > 0 && users.containsKey(idUser)) {
+			accounts.get(idAccount).amount += amount;
+			return true;	
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean showBalance(int idUser, int idAccount) { //rajouter l'id de l'user ?
+		if(accounts.containsKey(idAccount) &&  accounts.get(idAccount).idUser == idUser) {
+			//voit méthode toString à compléter
+			//toString();
+			System.out.println("Numéro de compte " + idAccount + " : montant -> " + accounts.get(idAccount).amount);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean withdraw(int idAccount, int idUser, double amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean transfert(int idUser, int idAccount1, int idAccount2, double amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }

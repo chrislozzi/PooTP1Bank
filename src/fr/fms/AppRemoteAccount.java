@@ -9,7 +9,6 @@ public class AppRemoteAccount {
 		
 	public static void main(String[] args) {
 		
-
 	}
 
 }
