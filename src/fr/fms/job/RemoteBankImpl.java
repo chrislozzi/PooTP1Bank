@@ -125,25 +125,6 @@ public class RemoteBankImpl <T,U,V> implements IRemoteBank<T,U,V>{
 		}
 		return false;
 	}
-	@Override
-	public void showBalance(int idAccount) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public boolean withdraw(int idAccount, int idUser, double amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean transfert(int idUser, int idAccount1, int idAccount2, double amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean deposit(int idAccount, int idUser, double amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 	
 }
