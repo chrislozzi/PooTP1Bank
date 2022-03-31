@@ -20,6 +20,10 @@ public interface IRemoteBank<T,U,V> {
 	public  Accounts<T> getAccountById(int idAccount);	
 	public  void addOperation(int idOperation, Operations <V> operation);
 	public Operations<V> getOperationById(int idOperation);
+	public void showBalance(int idAccount);
+	public boolean withdraw(int idAccount, int idUser, double amount);
+	public boolean transfert(int idUser,int idAccount1, int idAccount2, double amount);
+	public boolean deposit(int idAccount, int idUser, double amount);
 	public void getAllUserOperation();
 	public void getAllUserAccount();
 		
