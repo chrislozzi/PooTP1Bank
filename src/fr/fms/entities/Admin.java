@@ -1,11 +1,15 @@
 package fr.fms.entities;
 
-public class Admin<U> extends Users<U> {
+public class Admin extends Users {
 
-	public Admin(int id_user, String name, String firstName, String address, String mail, int phone, String pseudo,
-			int password, int is_admin) {
-		super(id_user, name, firstName, address, mail, phone, pseudo, password, is_admin);
+	public Admin(int idUser, String name, String firstName, String address, String mail, int phone, String pseudo,
+			int password) {
+		super(idUser, name, firstName, address, mail, phone, pseudo, password);
 		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return  "Admin" + super.toString() ;
 	}
 
 }

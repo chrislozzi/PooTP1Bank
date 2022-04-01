@@ -2,12 +2,12 @@ package fr.fms.entities;
 
 import java.util.Date;
 
-public class CurrentAccount <T> extends Accounts<T>{
+public class CurrentAccount  extends Accounts{
 
 	private int overdraft;
 	
-	public CurrentAccount(int id_account, int id_user, String name, Date date, double amount, Boolean type,int overdraft) {
-		super(id_account, id_user, name, date, amount, type);
+	public CurrentAccount(int idAccount, int idUser, String name, Date date, double amount, int overdraft) {
+		super(idAccount, idUser, name, date, amount);
 		
 		setOverdraft( overdraft);
 	}
@@ -22,7 +22,7 @@ public class CurrentAccount <T> extends Accounts<T>{
 
 	@Override
 	public String toString() {
-		return "SavingsAccount [overdraft=" + overdraft + "]";
+		return "SavingsAccount " + super.toString() + " overdraft= " + overdraft + "]";
 	}
 
 }

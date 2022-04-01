@@ -2,25 +2,25 @@ package fr.fms.entities;
 
 import java.util.Date;
 
-public class SavingsAccount<T> extends Accounts<T>{
+public class SavingsAccount extends Accounts{
 
-	private int interest_rate;
+	private int interestRate;
 	
-	public SavingsAccount(int id_account, int id_user, String name, Date date, double amount, Boolean type,int interest_rate) {
-		super(id_account, id_user, name, date, amount, type);
-		setInterest_rate(interest_rate);
+	public SavingsAccount(int idAccount, int idUser, String name, Date date, double amount,int interestRate) {
+		super(idAccount, idUser, name, date, amount);
+		setInterestRate(interestRate);
 	}
 
-	public int getInterest_rate() {
-		return interest_rate;
+	public int getInterestRate() {
+		return interestRate;
 	}
 
-	public void setInterest_rate(int interest_rate) {
-		this.interest_rate = interest_rate;
+	public void setInterestRate(int interestRate) {
+		this.interestRate = interestRate;
 	}
 	@Override
 	public String toString() {
-		return "CurrentAccount [interest_rate=" + interest_rate + "]";
+		return super.toString() + " " + "interestRate= " + interestRate + "]";
 	}
 
 }

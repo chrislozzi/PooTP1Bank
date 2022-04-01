@@ -2,45 +2,65 @@ package fr.fms.entities;
 
 import java.util.Date;
 
-public abstract class  Accounts<T>{
+public abstract class  Accounts{
 	
-	private int id_account;
-	private int id_user ;
+	private int idAccount;
+	private int idUser ;
 	private String name ;
 	private Date date ;
 	private double amount;
-	private Boolean type;
+
 	
 	
-	public Accounts(int id_account, int id_user, String name, Date date, double amount, Boolean type) {
-		super();
-		this.id_account = id_account;
-		this.id_user = id_user;
-		this.name = name;
-		this.date = date;
-		this.amount = amount;
-		this.type = type;
+	public Accounts(int idAccount, int idUser, String name, Date date, double amount) {
+		setIdAccount(idAccount);
+		setIdUser(idUser);		
+		setName(name);		
+		setDate(new Date());	
+		setAmount(amount);		
+		
 	}
 
 
-	public int getId_account() {
-		return id_account;
+	/**
+	 * @return the idAccount
+	 */
+	public int getIdAccount() {
+		return idAccount;
 	}
 
 
-	public void setId_account(int id_account) {
-		this.id_account = id_account;
+	/**
+	 * @param idAccount the idAccount to set
+	 */
+	public void setIdAccount(int idAccount) {
+		this.idAccount = idAccount;
 	}
 
 
-	public int getId_user() {
-		return id_user;
+
+
+
+	/**
+	 * @return the idUser
+	 */
+	public int getIdUser() {
+		return idUser;
 	}
 
 
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
+
+
+
+	/**
+	 * @param idUser the idUser to set
+	 */
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
+
+
+
 
 
 	public String getName() {
@@ -73,20 +93,12 @@ public abstract class  Accounts<T>{
 	}
 
 
-	public Boolean getType() {
-		return type;
-	}
-
-
-	public void setType(Boolean type) {
-		this.type = type;
-	}
 
 
 	@Override
 	public String toString() {
-		return "Accounts [id_account=" + id_account + ", id_user=" + id_user + ", name=" + name + ", date=" + date
-				+ ", amount=" + amount + ", type=" + type + "]";
+		return "[idAccount=" + idAccount + ", id_user=" + idUser + ", name=" + name + ", date=" + date
+				+ ", amount=" + amount + "]";
 	}
 	
 	

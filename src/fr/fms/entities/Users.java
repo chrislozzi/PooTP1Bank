@@ -1,8 +1,8 @@
 package fr.fms.entities;
 
-public abstract class Users<U> {
+public abstract class Users {
 
-	private int id_user;
+	private int idUser;
 	private String name  ;
 	private String firstName ;
 	private  String address ;
@@ -10,32 +10,45 @@ public abstract class Users<U> {
 	private int phone; 
 	private String pseudo; 
 	private int password;  
-	private int is_admin;
+
+
 	
-	
-	public Users(int id_user, String name, String firstName, String address, String mail, int phone, String pseudo,
-			int password, int is_admin) {
-		super();
-		this.id_user = id_user;
-		this.name = name;
-		this.firstName = firstName;
-		this.address = address;
-		this.mail = mail;
-		this.phone = phone;
-		this.pseudo = pseudo;
-		this.password = password;
-		this.is_admin = is_admin;
+	public Users(int idUser, String name, String firstName, String address, String mail, int phone, String pseudo,
+			int password) {	
+		setIdUser(idUser);	
+		setName(name);		
+		setFirstName(firstName);		
+		setAddress(address);		
+		setMail(mail);		
+		setPhone(phone);	
+		setPseudo(pseudo);		
+		setPassword(password);			
 	}
 
 
-	public int getId_user() {
-		return id_user;
+
+
+
+	/**
+	 * @return the idUser
+	 */
+	public int getIdUser() {
+		return idUser;
 	}
 
 
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
+
+
+
+	/**
+	 * @param idUser the idUser to set
+	 */
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
+
+
+
 
 
 	public String getName() {
@@ -108,21 +121,13 @@ public abstract class Users<U> {
 	}
 
 
-	public int getIs_admin() {
-		return is_admin;
-	}
 
-
-	public void setIs_admin(int is_admin) {
-		this.is_admin = is_admin;
-	}
 
 
 	@Override
 	public String toString() {
-		return "Users [id_user= " + id_user + ", name= " + name + ", firstName= " + firstName + ", address= " + address
-				+ ", mail= " + mail + ", phone= " + phone + ", pseudo= " + pseudo + ", password= " + password
-				+ ", is_admin= " + is_admin + "]";
+		return " [idUser= " + idUser + ", name= " + name + ", firstName= " + firstName + ", address= " + address
+				+ ", mail= " + mail + ", phone= " + phone + ", pseudo= " + pseudo + "]";
 	}
 	
 	

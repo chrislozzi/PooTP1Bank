@@ -2,68 +2,144 @@ package fr.fms.entities;
 
 import java.util.Date;
 
-public abstract class Operations<V> {
+public class Operations {
 	
-	private int id_operation ;
-	private int id_account ;
-	private int id_user ;
+	
+	private int idAccountSource ;
+	private int idAccountTarget ;
+	private double amount;
+	private int idUser ;
 	private Date date  ;
 	private String type ;
 	
-	public Operations(int id_operation, int id_account, int id_user, Date date, String type) {
+	/**
+	 * 
+	 * @param idAccountSource
+	 * @param idAccountTarget
+	 * @param idUser
+	 * @param amount
+	 * @param date
+	 * @param type
+	 */
+	public Operations(int idAccountSource, int idAccountTarget,int idUser, double amount, Date date, String type) {			
+				
+		setIdAccountSource(idAccountSource);		
+		setIdAccountTarget(idAccountTarget);		
+		setIdUser(idUser);		
+		setAmount(amount);
+		setDate(new Date());	
+		setType(type);
+	}
+	
+	
+
+	/**
+	 * @param idAccountSource
+	 * @param amount
+	 * @param idUser
+	 * @param date
+	 * @param type
+	 */
+	public Operations(int idAccountSource, double amount, int idUser, Date date, String type) {
+		setIdAccountSource(idAccountSource);				
+		setIdUser(idUser);		
+		setAmount(amount);
+		setDate(new Date());	
+		setType(type);
+	}
+
+
+
+	/**
+	 * @param idAccountSource
+	 * @param idUser
+	 * @param date
+	 * @param type
+	 */
+	public Operations(int idAccountSource, int idUser, Date date, String type) {
 		super();
-		this.id_operation = id_operation;
-		this.id_account = id_account;
-		this.id_user = id_user;
+		this.idAccountSource = idAccountSource;
+		this.idUser = idUser;
 		this.date = date;
 		this.type = type;
 	}
 
-	public int getId_operation() {
-		return id_operation;
-	}
 
-	public void setId_operation(int id_operation) {
-		this.id_operation = id_operation;
-	}
 
-	public int getId_account() {
-		return id_account;
+	/**
+	 * @return the idAccountSource
+	 */
+	public int getIdAccountSource() {
+		return idAccountSource;
 	}
-
-	public void setId_account(int id_account) {
-		this.id_account = id_account;
+	/**
+	 * @param idAccountSource the idAccountSource to set
+	 */
+	public void setIdAccountSource(int idAccountSource) {
+		this.idAccountSource = idAccountSource;
 	}
-
-	public int getId_user() {
-		return id_user;
+	/**
+	 * @return the idAccountTarget
+	 */
+	public int getIdAccountTarget() {
+		return idAccountTarget;
 	}
-
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
+	/**
+	 * @param idAccountTarget the idAccountTarget to set
+	 */
+	public void setIdAccountTarget(int idAccountTarget) {
+		this.idAccountTarget = idAccountTarget;
 	}
-
+	/**
+	 * @return the amount
+	 */
+	public double getAmount() {
+		return amount;
+	}
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	/**
+	 * @return the idUser
+	 */
+	public int getIdUser() {
+		return idUser;
+	}
+	/**
+	 * @param idUser the idUser to set
+	 */
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+	/**
+	 * @return the date
+	 */
 	public Date getDate() {
 		return date;
 	}
-
+	/**
+	 * @param date the date to set
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+	/**
+	 * @return the type
+	 */
 	public String getType() {
 		return type;
 	}
-
+	/**
+	 * @param type the type to set
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
-	@Override
-	public String toString() {
-		return "Operations [id_operation=" + id_operation + ", id_account=" + id_account + ", id_user=" + id_user
-				+ ", date=" + date + ", type=" + type + "]";
-	}
+
 
 	
 }
