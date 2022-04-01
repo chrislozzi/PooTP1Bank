@@ -29,15 +29,20 @@ public class AppRemoteAccount {
 		
 		bankRoot.addUser(sarah, christoof);
 		bankRoot.addAccount(sarah, SA1);
-		bankRoot.deposit(11, 2, 1263.60);
-		bankRoot.showBalance(2,11);
-		bankRoot.addUser(sarah, christoof);
-		bankRoot.showBalance(christoof.getIdUser(),12);
-		for (int i = 0; i <bankRoot.getOperationSize() ; i++) {
+		System.out.println(christoof.getIdUser());
+		bankRoot.deposit(1, christoof.getIdUser(), 1263.60);
+		bankRoot.showBalance(christoof.getIdUser(),1);
+		bankRoot.withdraw(1, christoof.getIdUser(), 100);
+		bankRoot.showBalance(christoof.getIdUser(),1);
+		//bankRoot.transfert(christoof.getIdUser(), 1, 1, 200);
+		//bankRoot.showBalance(christoof.getIdUser(),1);
+
+		//bankRoot.addUser(sarah, christoof);
+		//bankRoot.showBalance(christoof.getIdUser(),12);
+		for (int i = 1; i < bankRoot.getOperationSize() + 1 ; i++) {
 			System.out.println(bankRoot.getOperationById(i));
-		
-			
 		}
+		
 		
 	
 		
