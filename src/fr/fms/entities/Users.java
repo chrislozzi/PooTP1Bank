@@ -1,5 +1,8 @@
 package fr.fms.entities;
 
+import java.util.Date;
+import java.util.Map;
+
 public abstract class Users {
 
 	private int idUser;
@@ -111,8 +114,28 @@ public abstract class Users {
 		this.password = password;
 	}
 
+// méthodes
+	
+	public void addUser(Admin admin, Users user,Map<Integer, Users> users,Map<Integer, Operations> operations) {
 
+	}
+	public  Users createCustomer(String name, String firstName, String address, String mail, int phone, String pseudo,int password,Map<Integer, Operations> operations) {
+		return null;
+	}
+	
+	
+	public CurrentAccount createCurrentAccount(int idUser, String name, Date date, double amount, int overdraft) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public SavingsAccount createSavingAccount(int idUser, String name, Date date, double amount, int interestRate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void addAccount(Admin admin ,Accounts account,Map<Integer, Accounts> accounts,Map<Integer, Operations> operations) {
 
+	}
 
 
 	@Override

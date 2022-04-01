@@ -9,7 +9,10 @@ import java.util.Map;
 
 import fr.fms.entities.Accounts;
 import fr.fms.entities.Admin;
+import fr.fms.entities.CurrentAccount;
+import fr.fms.entities.Customer;
 import fr.fms.entities.Operations;
+import fr.fms.entities.SavingsAccount;
 import fr.fms.entities.Users;
 
 /**
@@ -31,23 +34,31 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return operations.size() + 1;
 
 	}
-	public  int newUserId() {
-		return users.size() + 1;
+	
 
+	public  Admin createCustomer(String name, String firstName, String address, String mail, int phone, String pseudo,int password,Map<Integer, Operations> operations) {
+		Admin sarah=new Admin(name,firstName, address,  mail,  phone,  pseudo, password);
+		return sarah;
 	}
-	public int newAccountId() {
-		return accounts.size() + 1;
-
+	
+	@Override
+	public CurrentAccount createCurrentAccount(int idUser, String name, Date date, double amount, int overdraft) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	@Override
-	public void addUser(Admin admin, Users user) {
+	public SavingsAccount createSavingAccount(int idUser, String name, Date date, double amount, int interestRate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void addUser(Admin admin, Users user,Map<Integer, Users> users,Map<Integer, Operations> operations) {
 
-		if(users.containsKey(user.getIdUser()))	
-			System.out.println("L'utilisateur : " + user.toString() + "est déjà enregistré dans la base");
-		else {
-			users.put(user.getIdUser(), user);
-			addOperation(newOperationId(), new Operations(users.size(), new Date(),"addUser", admin.getIdUser()));
-		}	
+		
+		  if(users.containsKey(user.getIdUser())) System.out.println("L'utilisateur : "
+		  + user.toString() + "est déjà enregistré dans la base"); else {
+		  users.put(user.getIdUser(), user); addOperation(newOperationId(), new
+		  Operations(users.size(), new Date(),"addUser", admin.getIdUser())); }
+		 
 
 	}
 	@Override
@@ -68,15 +79,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return users.get(idUser);
 	}
 	@Override
-	public void addAccount(Admin admin ,Accounts account) {
-
-		if(accounts.containsValue(account))	
-			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
-		else {
-			addOperation(newOperationId(), new Operations(account.getIdUser(),new Date(),"addAccount", admin.getIdUser()));
-			accounts.put(newAccountId(), account);
-		}
-
+	public void addAccount(Admin admin ,Accounts account,Map<Integer, Accounts> accounts,Map<Integer, Operations> operations) {
 	}
 	@Override
 	public void removeAccount(Admin admin , int newAccountId) {
@@ -135,6 +138,15 @@ public class RemoteBankImpl  implements IRemoteBank{
 		});
 
 	}
+	@Override
+	public void getAllOperations() {
+		System.out.println("Liste des operations :");
+		operations.forEach((key,value)->{	
+			System.out.println("AOperationKey : "+key+" ---> "+value);
+
+		});
+
+	}
 
 	@Override
 	public boolean deposit(int idAccount, int idUser, double amount) {
@@ -185,6 +197,22 @@ public class RemoteBankImpl  implements IRemoteBank{
 		}
 		return false;
 	}
+
+	public Map<Integer, Accounts> getAccounts() {
+		return accounts;
+	}
+
+	public Map<Integer, Users> getUsers() {
+		return users;
+	}
+	public Map<Integer, Operations> getOperation() {
+		return operations;
+	}
+
+	
+
+	
+
 
 
 

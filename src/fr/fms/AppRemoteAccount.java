@@ -14,46 +14,57 @@ public class AppRemoteAccount {
 
 		RemoteBankImpl bankRoot = new RemoteBankImpl();
 
-		Admin sarah =new Admin("Pelle","Sarah","221B av du Pied","saralune@yahoo.fr",666548,"sarahlune",372425);		
-		Customer jcduce=new Customer("Duce","Jean Claude","1 av des Champs Elysee","plantedbaton73@hotmail.com",555547,"bronzee",10423400);
-		Customer gogohugo=new Customer("Gogo","Hugo","5 rue de la pente","badadi@gfree.fr",555547,"petitjean",0745624);
-		Customer christoof  = new Customer("Ouille","Christoof","45 av du Lampion","cricri73@gmail.com",555547,"krispol",452875);
-	
-		bankRoot.addUser(sarah, sarah);
+		//admin creer par la matrice
+		Admin admin =bankRoot.createCustomer("Pelle","Sarah","221B av du Pied","saralune@yahoo.fr",666548,"sarahlune",372425,bankRoot.getOperation());	
+		bankRoot.addUser(admin, admin, bankRoot.getUsers(),bankRoot.getOperation());
+		
+		// l'admin creé les client
+		Customer gogohugo=admin.createCustomer("Gogo","Hugo","5 rue de la pente","badadi@gfree.fr",555547,"petitjean",0745624,bankRoot.getOperation());
+		Customer christoof  = admin.createCustomer("Ouille","Christoof","45 av du Lampion","cricri73@gmail.com",555547,"krispol",452875,bankRoot.getOperation());
+		
+		Customer jcduce=admin.createCustomer("Duce","Jean Claude","1 av des Champs Elysee","plantedbaton73@hotmail.com",555547,"bronzee",10423400,bankRoot.getOperation());
 
-		bankRoot.addUser(sarah, christoof);
-		bankRoot.addUser(sarah,gogohugo);
-		bankRoot.addUser(sarah, jcduce);
+		admin.addUser(admin, jcduce,bankRoot.getUsers(),bankRoot.getOperation());
+		admin.addUser(admin, gogohugo,bankRoot.getUsers(),bankRoot.getOperation());
+		admin.addUser(admin, christoof,bankRoot.getUsers(),bankRoot.getOperation());
+		System.out.println("--------------");
 		
+	    // puis les comptes
+		SavingsAccount sa1=admin.createSavingAccount(gogohugo.getIdUser(), "Saving account",new Date(), 1456.35, 23);
+		CurrentAccount ca1=admin.createCurrentAccount(christoof.getIdUser(),"Current account",new Date(),12995.36,400);
+		SavingsAccount sa2=admin.createSavingAccount(jcduce.getIdUser(),"Saving account",new Date(),12855.36,20);	  
+		SavingsAccount pplm=admin.createSavingAccount(gogohugo.getIdUser(),"Saving account",new Date(),1000000.36,20);
 		
-		CurrentAccount ca1=new CurrentAccount(christoof.getIdUser(),"Current account",new Date(),12995.36,400);
-		SavingsAccount sa1=new SavingsAccount(jcduce.getIdUser(),"Saving account",new Date(),12855.36,20);
-		SavingsAccount pplm=new SavingsAccount(gogohugo.getIdUser(),"Saving account",new Date(),1000000.36,20);
-		bankRoot.addAccount(sarah, ca1);
-		bankRoot.addAccount(sarah,sa1);
-		bankRoot.addAccount(sarah, pplm);
+		admin.addAccount(admin, sa1, bankRoot.getAccounts(), bankRoot.getOperation());
+		admin.addAccount(admin, ca1, bankRoot.getAccounts(), bankRoot.getOperation());
+		admin.addAccount(admin, sa2, bankRoot.getAccounts(), bankRoot.getOperation());
+		admin.addAccount(admin, pplm, bankRoot.getAccounts(), bankRoot.getOperation());
 		
-		System.out.println(ca1);
-
-		System.out.println("--------------------");
 		// liste des utilisateurs
+		System.out.println("--------------------");
 		bankRoot.getAllUser();
 
 		// liste des comptes
+		System.out.println("--------------------");
 		bankRoot.getAllAccount();
 
+		//liste des opérations
+		System.out.println("--------------------");
+		bankRoot.getAllOperations();
+		
+		
 		//bankRoot.deposit(, 2, 1263.60);
-		bankRoot.showBalance(jcduce.getIdUser(),2);
-		
-		bankRoot.showBalance(christoof.getIdUser(),1);
-		//
-		bankRoot.getAllUserOperation(jcduce.getIdUser());
-		
-			
-		
+		//bankRoot.showBalance(jcduce.getIdUser(),2);
 
-		
-		
+		//bankRoot.showBalance(christoof.getIdUser(),1);
+		//
+		//bankRoot.getAllUserOperation(jcduce.getIdUser());
+
+
+
+
+
+
 
 
 		// suppression d'un cleint en fonction de la clé
