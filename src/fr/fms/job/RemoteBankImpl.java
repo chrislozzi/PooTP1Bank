@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.fms.entities.Accounts;
+import fr.fms.entities.Admin;
 import fr.fms.entities.Operations;
 import fr.fms.entities.Users;
 
@@ -38,11 +39,14 @@ public class RemoteBankImpl  implements IRemoteBank{
 		
 	}
 	@Override
-	public void addUser(int idAdmin, Users user) {
+	public void addUser(Admin admin, Users user) {
 		
-		if(users.containsValue(users))	
+		if(users.containsValue(user))	
 			System.out.println("L'utilisateur : " + users.toString() + "est déjà enregistré dans la base");
-		else users.put(idAdmin, user);
+		else {
+			operations.put(newOperationId(), new Operations(user.getIdUser(),new Date(),"addUser"));
+			users.put(admin.getIdUser(), user);
+		}
 			
 	}
 	@Override

@@ -9,6 +9,7 @@ public class Operations {
 	private int idAccountTarget ;
 	private double amount;
 	private int idUser ;
+	private int idAdmin ;
 	private Date date  ;
 	private String type ;
 	
@@ -59,6 +60,20 @@ public class Operations {
 	public Operations(int idAccountSource, int idUser, Date date, String type) {
 		super();
 		this.idAccountSource = idAccountSource;
+		this.idUser = idUser;
+		this.date = date;
+		this.type = type;
+	}
+	
+
+
+	/**
+	 * @param idUser
+	 * @param date
+	 * @param type
+	 */
+	public Operations(int idUser, Date date, String type) {
+		super();
 		this.idUser = idUser;
 		this.date = date;
 		this.type = type;

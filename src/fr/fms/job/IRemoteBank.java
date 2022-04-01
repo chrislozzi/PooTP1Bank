@@ -4,6 +4,7 @@
 package fr.fms.job;
 
 import fr.fms.entities.Accounts;
+import fr.fms.entities.Admin;
 import fr.fms.entities.Operations;
 import fr.fms.entities.Users;
 
@@ -12,7 +13,7 @@ import fr.fms.entities.Users;
  *
  */
 public interface IRemoteBank {
-	public void addUser(int idAdmin, Users user);
+	public void addUser(Admin admin, Users user);
 	public void removeUser(int idUser);
 	public  Users getUserById(int idUser);
 	public void addAccount(int idAccount, Accounts account);
