@@ -6,8 +6,8 @@ public class CurrentAccount  extends Accounts{
 
 	private int overdraft;
 	
-	public CurrentAccount(int idAccount, int idUser, String name, Date date, double amount, int overdraft) {
-		super(idAccount, idUser, name, date, amount);
+	public CurrentAccount(int idUser, String name, Date date, double amount, int overdraft) {
+		super(idUser, name, date, amount);
 		
 		setOverdraft( overdraft);
 	}
