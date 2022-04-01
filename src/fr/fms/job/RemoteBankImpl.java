@@ -42,9 +42,9 @@ public class RemoteBankImpl  implements IRemoteBank{
 	public void addUser(Admin admin, Users user) {
 		
 		if(users.containsValue(user))	
-			System.out.println("L'utilisateur : " + users.toString() + "est déjà enregistré dans la base");
+			System.out.println("L'utilisateur : " + user.toString() + "est déjà enregistré dans la base");
 		else {
-			operations.put(newOperationId(), new Operations(user.getIdUser(),new Date(),"addUser"));
+			addOperation(newOperationId(), new Operations(user.getIdUser(),new Date(),"addUser"));
 			users.put(admin.getIdUser(), user);
 		}
 			
@@ -92,14 +92,14 @@ public class RemoteBankImpl  implements IRemoteBank{
 	@Override
 	public void getAllUserAccount() {
 		// TODO Auto-generated method stub
-
+		
 	} 
 
 	@Override
 	public boolean deposit(int idAccount, int idUser, double amount) {
-		if(amount > 0 && users.containsKey(idUser)) {
-			Accounts getAccount = accounts.get(idAccount);
-			getAccount.setAmount(getAccount.getAmount() + amount);
+		if(amount > 0 && users.containsKey(idUser)) {			
+			getAccountById(idAccount).setAmount(getAccountById(idAccount).getAmount() + amount);
+			addOperation(newOperationId(), new Operations(idAccount, amount, idUser, new Date(), "deposit"));
 			return true;	
 		} else {
 			return false;
@@ -108,10 +108,10 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 	@Override
 	public boolean showBalance(int idUser, int idAccount) { 
-		if(accounts.containsKey(idAccount) &&  accounts.get(idAccount).getIdUser() == idUser) {
+		if(accounts.containsKey(idAccount) &&  getAccountById(idAccount).getIdUser() == idUser) {
 			//voir la méthode toString à compléter ??
 			//toString();
-			System.out.println("Numéro de compte " + idAccount + " : montant -> " + accounts.get(idAccount).getAmount());
+			System.out.println("Numéro de compte " + idAccount + " : montant -> " + getAccountById(idAccount).getAmount());
 			return true;
 		} else {
 			System.out.println("Aucun compte associé.");
@@ -122,10 +122,9 @@ public class RemoteBankImpl  implements IRemoteBank{
 	@Override
 	public boolean withdraw(int idAccount, int idUser, double amount) { //attention au découvert autorisé
 
-		if(accounts.containsKey(idAccount) && amount > 0) {
-			Accounts getAccount = accounts.get(idAccount);
-			if(amount <= getAccount.getAmount()) {
-				getAccount.setAmount(getAccount.getAmount() - amount);
+		if(accounts.containsKey(idAccount) && amount > 0) {			
+			if(amount <= getAccountById(idAccount).getAmount()) {
+				getAccountById(idAccount).setAmount(getAccountById(idAccount).getAmount() - amount);
 				return true;
 			}
 		} 
@@ -136,12 +135,9 @@ public class RemoteBankImpl  implements IRemoteBank{
 	public boolean transfert(int idUser, int idAccount1, int idAccount2, double amount) { //attention au découvert autorisé
 
 		if(accounts.containsKey(idAccount1) && amount > 0) {
-			Accounts getAccount1 = accounts.get(idAccount1);
-			Accounts getAccount2 = accounts.get(idAccount2);
-
-			if(amount <= getAccount1.getAmount()) {
-				getAccount1.setAmount(getAccount1.getAmount() - amount);
-				getAccount2.setAmount(getAccount2.getAmount() + amount);
+			if(amount <= getAccountById(idAccount1).getAmount()) {
+				getAccountById(idAccount1).setAmount(getAccountById(idAccount1).getAmount() - amount);
+				getAccountById(idAccount2).setAmount(getAccountById(idAccount2).getAmount() + amount);
 				return true;
 			}
 		}

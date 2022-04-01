@@ -9,7 +9,6 @@ public class Operations {
 	private int idAccountTarget ;
 	private double amount;
 	private int idUser ;
-	private int idAdmin ;
 	private Date date  ;
 	private String type ;
 	
