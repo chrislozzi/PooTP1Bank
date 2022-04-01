@@ -10,8 +10,6 @@ public abstract class Users {
 	private int phone; 
 	private String pseudo; 
 	private int password;  
-
-
 	
 	public Users(int idUser, String name, String firstName, String address, String mail, int phone, String pseudo,
 			int password) {	
