@@ -2,9 +2,9 @@ package fr.fms.entities;
 
 public class Admin extends Users {
 
-	public Admin(int idUser, String name, String firstName, String address, String mail, int phone, String pseudo,
+	public Admin(String name, String firstName, String address, String mail, int phone, String pseudo,
 			int password) {
-		super(idUser, name, firstName, address, mail, phone, pseudo, password);
+		super(name, firstName, address, mail, phone, pseudo, password);
 		// TODO Auto-generated constructor stub
 	}
 	@Override

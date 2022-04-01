@@ -26,47 +26,50 @@ public class RemoteBankImpl  implements IRemoteBank{
 		users =new HashMap<>();
 		operations =new HashMap<>();
 	}
-	
-	public int getOperationSize() {
-		return operations.size();
-		
-	}
+
 	public int newOperationId() {
 		return operations.size() + 1;
-		
+
 	}
-	public int newUserId() {
+	public  int newUserId() {
 		return users.size() + 1;
-		
+
 	}
 	public int newAccountId() {
 		return accounts.size() + 1;
-		
+
 	}
 	@Override
 	public void addUser(Admin admin, Users user) {
-		
-		if(users.containsValue(user))	
+
+		if(users.containsKey(user.getIdUser()))	
 			System.out.println("L'utilisateur : " + user.toString() + "est déjà enregistré dans la base");
 		else {
-			users.put(newUserId(), user);
+			users.put(user.getIdUser(), user);
 			addOperation(newOperationId(), new Operations(users.size(), new Date(),"addUser", admin.getIdUser()));
 		}	
 
 	}
 	@Override
-	public void removeUser(int idUser) {
-		// TODO Auto-generated method stub
+	public void removeUser(Admin admin, int newUserId) {
+
+		if (users.containsKey(newUserId)) {
+			users.remove(newUserId);
+			System.out.println("Client supprimé.");
+			addOperation(newOperationId(), new Operations(users.size(), new Date(),"remove", admin.getIdUser()));
+		} else {
+			System.out.println("Client inexistant.");
+		}
 
 	}
 	@Override
 	public Users getUserById(int idUser) {
-		
+
 		return users.get(idUser);
 	}
 	@Override
 	public void addAccount(Admin admin ,Accounts account) {
-		
+
 		if(accounts.containsValue(account))	
 			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
 		else {
@@ -76,8 +79,15 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 	}
 	@Override
-	public void removeAccount(int idAccount) {
-		// TODO Auto-generated method stub
+	public void removeAccount(Admin admin , int newAccountId) {
+		if (accounts.containsKey(newAccountId)) {
+			System.out.println("Compte supprimé.");
+			addOperation(newOperationId(), new Operations(newAccountId ,admin.getIdUser() ,new Date(),"removeAccount" ));
+			accounts.remove(newAccountId);
+		} else {
+			System.out.println("Compte inexistant.");
+		}
+
 
 	}
 	@Override
@@ -87,7 +97,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 	@Override
 	public void addOperation(int idOperation, Operations operation) {
-		
+
 		operations.put(idOperation,operation);
 	}
 	@Override
@@ -97,16 +107,34 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 	@Override
 	public void getAllUserOperation(int idUser) {
+
 		for(Operations op : operations.values())
 			if(op.getIdUser() == idUser && (op.getIdAdmin()== 0 )) System.out.println(op);
 	
-		//if(accounts.get(idAccount).getIdUser() == idUser) ;
-		
 	}
 	@Override
 	public void getAllUserAccount() {
 
+
 	} 
+	@Override
+	public void getAllUser() {
+		System.out.println("Liste des utilisateurs :");
+		users.forEach((key,value)->{	
+			System.out.println("CustomerKey : "+key+" ---> "+value);
+
+		});
+
+	}
+	@Override
+	public void getAllAccount() {
+		System.out.println("Liste des comptes :");
+		accounts.forEach((key,value)->{	
+			System.out.println("AccountKey : "+key+" ---> "+value);
+
+		});
+
+	}
 
 	@Override
 	public boolean deposit(int idAccount, int idUser, double amount) {
@@ -157,6 +185,10 @@ public class RemoteBankImpl  implements IRemoteBank{
 		}
 		return false;
 	}
+
+
+
+
 
 
 

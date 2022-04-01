@@ -22,7 +22,7 @@ public class CurrentAccount  extends Accounts{
 
 	@Override
 	public String toString() {
-		return "SavingsAccount " + super.toString() + " overdraft= " + overdraft + "]";
+		return "CurrentAccount " + super.toString() + " overdraft= " + overdraft + "]";
 	}
 
 }

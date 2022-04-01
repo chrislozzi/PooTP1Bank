@@ -4,12 +4,12 @@ import java.util.Date;
 
 public abstract class  Accounts{
 	
-
+	private int idAccount;
 	private int idUser ;
 	private String name ;
 	private Date date ;
 	private double amount;
-
+	public static int idAccountCount = 0;
 	
 	/**
 	 * 
@@ -19,11 +19,29 @@ public abstract class  Accounts{
 	 * @param amount
 	 */
 	public Accounts(int idUser, String name, Date date, double amount) {
+		idAccountCount++;
+		setIdAccount(idAccountCount);
 		setIdUser(idUser);		
 		setName(name);		
 		setDate(new Date());	
 		setAmount(amount);		
 		
+	}
+
+
+	/**
+	 * @return the idAccount
+	 */
+	public int getIdAccount() {
+		return idAccount;
+	}
+
+
+	/**
+	 * @param idAccount the idAccount to set
+	 */
+	public void setIdAccount(int idAccount) {
+		this.idAccount = idAccount;
 	}
 
 
@@ -83,8 +101,8 @@ public abstract class  Accounts{
 
 	@Override
 	public String toString() {
-		return "[id_user=" + idUser + ", name=" + name + ", date=" + date
-				+ ", amount=" + amount + "]";
+		return "[idAccount = " + idAccount + ", idUser = " + idUser + ", name = " + name + ", date = " + date
+				+ ", amount = " + amount + "]";
 	}
 	
 	
