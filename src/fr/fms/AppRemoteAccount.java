@@ -37,8 +37,6 @@ public class AppRemoteAccount {
 		//bankRoot.transfert(christoof.getIdUser(), 1, 1, 200);
 		//bankRoot.showBalance(christoof.getIdUser(),1);
 
-		//bankRoot.addUser(sarah, christoof);
-		//bankRoot.showBalance(christoof.getIdUser(),12);
 		for (int i = 1; i < bankRoot.getOperationSize() + 1 ; i++) {
 			System.out.println(bankRoot.getOperationById(i));
 		}

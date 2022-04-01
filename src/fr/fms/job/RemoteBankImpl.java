@@ -123,7 +123,6 @@ public class RemoteBankImpl  implements IRemoteBank{
 			System.out.println("Numéro de compte " + idAccount + " : montant -> " + getAccountById(idAccount).getAmount());
 			addOperation(newOperationId(), new Operations(idAccount, idUser, new Date(), "showBalance"));
 			return true;
-			
 		} else {
 			System.out.println("Aucun compte associé.");
 			return false;
