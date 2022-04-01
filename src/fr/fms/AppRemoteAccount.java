@@ -26,18 +26,16 @@ public class AppRemoteAccount {
 		SavingsAccount SA1=new SavingsAccount(2,"Saving account",new Date(),125.36,20);
 				
 
-		
+		bankRoot.addUser(sarah, sarah);
 		bankRoot.addUser(sarah, christoof);
 		bankRoot.addAccount(sarah, SA1);
-		bankRoot.deposit(11, 2, 1263.60);
-		bankRoot.showBalance(2,11);
+		//bankRoot.deposit(, 2, 1263.60);
+		bankRoot.showBalance(2,1);
 		bankRoot.addUser(sarah, christoof);
 		bankRoot.showBalance(christoof.getIdUser(),12);
-		for (int i = 0; i <bankRoot.getOperationSize() ; i++) {
-			System.out.println(bankRoot.getOperationById(i));
-		
+		bankRoot.getAllUserOperation(2);
 			
-		}
+		
 		
 	
 		

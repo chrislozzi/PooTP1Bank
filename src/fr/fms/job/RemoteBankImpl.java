@@ -96,7 +96,9 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 	@Override
 	public void getAllUserOperation(int idUser) {
-		
+		for(Operations op : operations.values())
+			if(op.getIdUser() == idUser && (op.getIdAdmin()== 0 )) System.out.println(op);
+	
 		//if(accounts.get(idAccount).getIdUser() == idUser) ;
 		
 	}
