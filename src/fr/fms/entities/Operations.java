@@ -9,6 +9,7 @@ public class Operations {
 	private int idAccountTarget ;
 	private double amount;
 	private int idUser ;
+	private int idAdmin;
 	private Date date  ;
 	private String type ;
 	
@@ -57,25 +58,44 @@ public class Operations {
 	 * @param type
 	 */
 	public Operations(int idAccountSource, int idUser, Date date, String type) {
-		super();
-		this.idAccountSource = idAccountSource;
-		this.idUser = idUser;
-		this.date = date;
-		this.type = type;
+		setIdAccountSource(idAccountSource);				
+		setIdUser(idUser);				
+		setDate(new Date());	
+		setType(type);
 	}
 	
 
 
 	/**
+	 * 
 	 * @param idUser
 	 * @param date
 	 * @param type
+	 * @param idAdmin
 	 */
-	public Operations(int idUser, Date date, String type) {
-		super();
-		this.idUser = idUser;
-		this.date = date;
-		this.type = type;
+	public Operations(int idUser, Date date, String type ,int idAdmin) {					
+		setIdUser(idUser);		
+		setIdAdmin(idAdmin);
+		setDate(new Date());	
+		setType(type);
+	}
+
+
+
+	/**
+	 * @return the idAdmin
+	 */
+	public int getIdAdmin() {
+		return idAdmin;
+	}
+
+
+
+	/**
+	 * @param idAdmin the idAdmin to set
+	 */
+	public void setIdAdmin(int idAdmin) {
+		this.idAdmin = idAdmin;
 	}
 
 
@@ -151,6 +171,14 @@ public class Operations {
 	 */
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Operations [idAccountSource=" + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
+				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date + ", type=" + type + "]";
 	}
 
 

@@ -26,6 +26,11 @@ public class RemoteBankImpl  implements IRemoteBank{
 		users =new HashMap<>();
 		operations =new HashMap<>();
 	}
+	
+	public int getOperationSize() {
+		return operations.size();
+		
+	}
 	public int newOperationId() {
 		return operations.size() + 1;
 		
@@ -44,10 +49,10 @@ public class RemoteBankImpl  implements IRemoteBank{
 		if(users.containsValue(user))	
 			System.out.println("L'utilisateur : " + user.toString() + "est déjà enregistré dans la base");
 		else {
-			addOperation(newOperationId(), new Operations(user.getIdUser(),new Date(),"addUser"));
-			users.put(admin.getIdUser(), user);
-		}
-			
+			users.put(newUserId(), user);
+			addOperation(newOperationId(), new Operations(users.size(), new Date(),"addUser", admin.getIdUser()));
+		}	
+
 	}
 	@Override
 	public void removeUser(int idUser) {
@@ -60,9 +65,15 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return users.get(idUser);
 	}
 	@Override
-	public void addAccount(int idAccount, Accounts account) {
-	
-		accounts.put(idAccount, account);
+	public void addAccount(Admin admin ,Accounts account) {
+		
+		if(accounts.containsValue(account))	
+			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
+		else {
+			addOperation(newOperationId(), new Operations(account.getIdUser(),new Date(),"addAccount", admin.getIdUser()));
+			accounts.put(newAccountId(), account);
+		}
+
 	}
 	@Override
 	public void removeAccount(int idAccount) {
@@ -85,14 +96,14 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return operations.get(idOperation);
 	}
 	@Override
-	public void getAllUserOperation() {
-		// TODO Auto-generated method stub
-
+	public void getAllUserOperation(int idUser) {
+		
+		//if(accounts.get(idAccount).getIdUser() == idUser) ;
+		
 	}
 	@Override
 	public void getAllUserAccount() {
-		// TODO Auto-generated method stub
-		
+
 	} 
 
 	@Override

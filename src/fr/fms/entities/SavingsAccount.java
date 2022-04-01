@@ -6,8 +6,8 @@ public class SavingsAccount extends Accounts{
 
 	private int interestRate;
 	
-	public SavingsAccount(int idAccount, int idUser, String name, Date date, double amount,int interestRate) {
-		super(idAccount, idUser, name, date, amount);
+	public SavingsAccount(int idUser, String name, Date date, double amount,int interestRate) {
+		super( idUser, name, date, amount);
 		setInterestRate(interestRate);
 	}
 
