@@ -29,12 +29,17 @@ public class AppRemoteAccount {
 		bankRoot.addUser(sarah, sarah);
 		bankRoot.addUser(sarah, christoof);
 		bankRoot.addAccount(sarah, SA1);
+
 		//bankRoot.deposit(, 2, 1263.60);
 		bankRoot.showBalance(2,1);
 		bankRoot.addUser(sarah, christoof);
 		bankRoot.showBalance(christoof.getIdUser(),12);
 		bankRoot.getAllUserOperation(2);
 			
+		
+
+
+
 		
 		
 	
