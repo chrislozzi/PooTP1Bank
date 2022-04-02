@@ -177,8 +177,8 @@ public class Operations {
 
 	@Override
 	public String toString() {
-		return "Operations [idAccountSource=" + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
-				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date + ", type=" + type + "]";
+		return "Operations sur le compte numéro : " + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
+				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date + ", type=" + type ;
 	}
 
 

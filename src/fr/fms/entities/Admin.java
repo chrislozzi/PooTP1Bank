@@ -16,8 +16,12 @@ public class Admin extends Users {
 		return operations.size() + 1;
 
 	}
-	public int newAccountId(Map<Integer, Accounts> accounts) {
-		return accounts.size() + 1;
+	public int newSavingsAccountId(Map<Integer, SavingsAccount> savingsAccounts) {
+		return savingsAccounts.size() + 1;
+
+	}
+	public int newCurrentAccountId(Map<Integer, CurrentAccount>currentAccounts) {
+		return currentAccounts.size() + 1;
 
 	}
 	public  Customer createCustomer(String name, String firstName, String address, String mail, int phone, String pseudo,int password,Map<Integer, Operations> operations) {
@@ -47,16 +51,89 @@ public class Admin extends Users {
 
 	}
 	
-	public void addAccount(Admin admin ,Accounts account,Map<Integer, Accounts> accounts,Map<Integer, Operations> operations) {
+	public void addCurrentAccount(Admin admin ,CurrentAccount account,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) {
 
-		if(accounts.containsValue(account))	
+		if(currentAccounts.containsValue(account))	
 			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
 		else {
 			operations.put(newOperationId(operations), new Operations(account.getIdUser(),new Date(),"addAccount", admin.getIdUser()));
-			accounts.put(newAccountId(accounts), account);
+			currentAccounts.put(newCurrentAccountId(currentAccounts), account);
 		}
 
 	}
+	public void addSavingsAccount(Admin admin ,SavingsAccount account,Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) {
+
+		if(savingsAccounts.containsValue(account))	
+			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
+		else {
+			operations.put(newOperationId(operations), new Operations(account.getIdUser(),new Date(),"addAccount", admin.getIdUser()));
+			savingsAccounts.put(newSavingsAccountId(savingsAccounts), account);
+		}
+
+	}
+	
+	/*
+	 * public Accounts getAccountById(int idAccount) { // TODO Auto-generated method
+	 * stub return accounts.get(idAccount); }
+	 */
+	
+	
+	
+	public void getAllUser(Map<Integer, Users> users) {
+		System.out.println("Liste des utilisateurs :");
+		users.forEach((key,value)->{	
+			System.out.println("CustomerKey : "+key+" ---> "+value);
+
+		});
+
+	}
+	
+	public void getAllCurrentAccounts(Map<Integer, CurrentAccount>currentAccounts) {
+		System.out.println("Liste des comptes courant :");
+		currentAccounts.forEach((key,value)->{	
+			System.out.println("AccountKey : "+key+" ---> "+value);
+
+		});
+
+	}
+	public void getAllSavingsAccounts(Map<Integer, SavingsAccount> savingsAccounts) {
+		System.out.println("Liste des comptes épargnes :");
+		savingsAccounts.forEach((key,value)->{	
+			System.out.println("AccountKey : "+key+" ---> "+value);
+
+		});
+
+	}
+	public void getAllOperations(Map<Integer, Operations> operations) {
+		System.out.println("Liste des operations :");
+		operations.forEach((key,value)->{	
+			System.out.println("AOperationKey : "+key+" ---> "+value);
+
+		});
+
+	}
+	
+	/*
+	 * public void removeAccount(Admin admin , int newAccountId) { if
+	 * (accounts.containsKey(newAccountId)) {
+	 * System.out.println("Compte supprimé."); addOperation(newOperationId(), new
+	 * Operations(newAccountId ,admin.getIdUser() ,new Date(),"removeAccount" ));
+	 * accounts.remove(newAccountId); } else {
+	 * System.out.println("Compte inexistant."); }
+	 * 
+	 * 
+	 * }
+	 */
+	/*
+	 * public void removeUser(Admin admin, int newUserId) {
+	 * 
+	 * if (users.containsKey(newUserId)) { users.remove(newUserId);
+	 * System.out.println("Client supprimé."); addOperation(newOperationId(), new
+	 * Operations(users.size(), new Date(),"remove", admin.getIdUser())); } else {
+	 * System.out.println("Client inexistant."); }
+	 * 
+	 * }
+	 */
 	@Override
 	public String toString() {
 		return  "Admin" + super.toString() ;

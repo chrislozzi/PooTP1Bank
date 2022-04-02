@@ -28,14 +28,12 @@ public abstract class  Accounts{
 		
 	}
 
-
 	/**
 	 * @return the idAccount
 	 */
 	public int getIdAccount() {
 		return idAccount;
 	}
-
 
 	/**
 	 * @param idAccount the idAccount to set
@@ -44,7 +42,6 @@ public abstract class  Accounts{
 		this.idAccount = idAccount;
 	}
 
-
 	/**
 	 * @return the idUser
 	 */
@@ -52,20 +49,12 @@ public abstract class  Accounts{
 		return idUser;
 	}
 
-
-
-
-
 	/**
 	 * @param idUser the idUser to set
 	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
-
-
-
-
 
 	public String getName() {
 		return name;
@@ -95,9 +84,6 @@ public abstract class  Accounts{
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-
-	
-
 
 	@Override
 	public String toString() {
