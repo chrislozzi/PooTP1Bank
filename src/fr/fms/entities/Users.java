@@ -1,5 +1,7 @@
 package fr.fms.entities;
 
+import java.util.ArrayList;
+
 public abstract class Users {
 
 	private int idUser;
@@ -11,7 +13,7 @@ public abstract class Users {
 	private String pseudo; 
 	private int password;  
 	public static int idUserCount = 0;
-
+	//public ArrayList <Integer>userIdAccounts;
 	
 	public Users( String name, String firstName, String address, String mail, int phone, String pseudo,int password) {	
 		idUserCount ++;

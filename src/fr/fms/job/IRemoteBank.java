@@ -26,7 +26,7 @@ public interface IRemoteBank {
 	public boolean transfert(int idUser,int idAccount1, int idAccount2, double amount);
 	public boolean deposit(int idAccount, int idUser, double amount);
 	public void getAllUserOperation(int idUser);
-	public void getAllUserAccount();
+	public void getAllUserAccount(int idUser);
 	public void getAllUser();
 	public void getAllAccount();
 }

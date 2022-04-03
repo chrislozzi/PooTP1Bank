@@ -9,6 +9,7 @@ import java.util.Map;
 
 import fr.fms.entities.Accounts;
 import fr.fms.entities.Admin;
+import fr.fms.entities.CurrentAccount;
 import fr.fms.entities.Operations;
 import fr.fms.entities.Users;
 
@@ -17,6 +18,7 @@ import fr.fms.entities.Users;
  *
  */
 public class RemoteBankImpl  implements IRemoteBank{
+	
 	private Map<Integer, Accounts> accounts;
 	private Map<Integer, Users> users;
 	private Map<Integer, Operations> operations;
@@ -31,14 +33,6 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return operations.size() + 1;
 
 	}
-	public  int newUserId() {
-		return users.size() + 1;
-
-	}
-	public int newAccountId() {
-		return accounts.size() + 1;
-
-	}
 	@Override
 	public void addUser(Admin admin, Users user) {
 
@@ -51,10 +45,10 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 	}
 	@Override
-	public void removeUser(Admin admin, int newUserId) {
+	public void removeUser(Admin admin, int userId) {
 
-		if (users.containsKey(newUserId)) {
-			users.remove(newUserId);
+		if (users.containsKey(userId)) {
+			users.remove(userId);
 			System.out.println("Client supprimé.");
 			addOperation(newOperationId(), new Operations(users.size(), new Date(),"remove", admin.getIdUser()));
 		} else {
@@ -74,7 +68,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
 		else {
 			addOperation(newOperationId(), new Operations(account.getIdUser(),new Date(),"addAccount", admin.getIdUser()));
-			accounts.put(newAccountId(), account);
+			accounts.put(account.getIdAccount(), account);
 		}
 
 	}
@@ -107,15 +101,17 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 	@Override
 	public void getAllUserOperation(int idUser) {
+		System.out.println("Liste des opérations de " + getUserById(idUser).getName() + " " + getUserById(idUser).getFirstName() + " :");
+		for(Operations userOperation : operations.values())
+			if(userOperation.getIdUser() == idUser && (userOperation.getIdAdmin()== 0 )) System.out.println(userOperation);
 
-		for(Operations op : operations.values())
-			if(op.getIdUser() == idUser && (op.getIdAdmin()== 0 )) System.out.println(op);
-	
 	}
 	@Override
-	public void getAllUserAccount() {
-
-
+	public void getAllUserAccount(int idUser) {
+		System.out.println("Liste des comptes de l'utilisateur" + getUserById(idUser) +" :");
+		accounts.forEach((key,value)->{	
+			System.out.println("AccountKey : "+key+" ---> "+value);		
+		});
 	} 
 	@Override
 	public void getAllUser() {
@@ -152,6 +148,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 		if(accounts.containsKey(idAccount) &&  getAccountById(idAccount).getIdUser() == idUser) {
 			System.out.println("Numéro de compte " + idAccount + " : montant -> " + getAccountById(idAccount).getAmount());
 			addOperation(newOperationId(), new Operations(idAccount, idUser, new Date(), "showBalance"));
+			
 			return true;
 		} else {
 			System.out.println("Aucun compte associé.");
@@ -160,36 +157,41 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 
 	@Override
-	public boolean withdraw(int idAccount, int idUser, double amount) { //attention au découvert autorisé
-
-		if(accounts.containsKey(idAccount) && amount > 0) {			
-			if(amount <= getAccountById(idAccount).getAmount()) {
-				getAccountById(idAccount).setAmount(getAccountById(idAccount).getAmount() - amount);
-				addOperation(newOperationId(), new Operations(idAccount, amount, idUser, new Date(), "withdraw"));
-				return true;
-			}
-		} 
-		return false;
-	}
-
-	@Override
-	public boolean transfert(int idUser, int idAccount1, int idAccount2, double amount) { //attention au découvert autorisé
-
-		if(accounts.containsKey(idAccount1) && amount > 0) {
-			if(amount <= getAccountById(idAccount1).getAmount()) {
-				getAccountById(idAccount1).setAmount(getAccountById(idAccount1).getAmount() - amount);
-				getAccountById(idAccount2).setAmount(getAccountById(idAccount2).getAmount() + amount);
-				addOperation(newOperationId(), new Operations(idAccount1, idAccount2, idUser, amount, new Date(), "transfert"));
-				return true;
-			}
+	public boolean withdraw(int idAccount, int idUser, double amount) { 
+		if(accounts.containsKey(idAccount) && amount > 0) {	
+			if(getAccountById(idAccount) instanceof CurrentAccount) {	
+				if( 0 <= (getAccountById(idAccount).getAmount() - amount + ((CurrentAccount) getAccountById(idAccount)).getOverdraft())) {
+					getAccountById(idAccount).setAmount(getAccountById(idAccount).getAmount() - amount);
+					
+					addOperation(newOperationId(), new Operations(idAccount, amount, idUser, new Date(), "withdraw"));
+					return true;
+				}		
+			}		
 		}
 		return false;
 	}
 
+	@Override
+	public boolean transfert(int idUser, int idAccountSource, int idAccountTarget, double amount) {
 
+		if(accounts.containsKey(idAccountSource) && amount > 0) {
+			if(getAccountById(idAccountSource) instanceof CurrentAccount) {
+				if( 0 <= (getAccountById(idAccountSource).getAmount() - amount + ((CurrentAccount) getAccountById(idAccountSource)).getOverdraft())) {
+					getAccountById(idAccountSource).setAmount(getAccountById(idAccountSource).getAmount() - amount);
+					getAccountById(idAccountTarget).setAmount(getAccountById(idAccountTarget).getAmount() + amount);
+					
+					addOperation(newOperationId(), new Operations(idAccountSource, idAccountTarget, idUser, amount, new Date(), "transfert"));
+					return true;}
 
+			}else if(0 <= (getAccountById(idAccountSource).getAmount() - amount)) {
+				getAccountById(idAccountSource).setAmount(getAccountById(idAccountSource).getAmount() - amount);
+				getAccountById(idAccountTarget).setAmount(getAccountById(idAccountTarget).getAmount() + amount);
+				
+				addOperation(newOperationId(), new Operations(idAccountSource, idAccountTarget, idUser, amount, new Date(), "transfert"));
+				return true;
+			}
 
-
-
-
+		}
+		return false;
+	}
 }

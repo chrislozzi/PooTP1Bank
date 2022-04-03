@@ -1,5 +1,6 @@
 package fr.fms.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class  Accounts{
@@ -10,7 +11,7 @@ public abstract class  Accounts{
 	private Date date ;
 	private double amount;
 	public static int idAccountCount = 0;
-	
+	//public static ArrayList <Integer>accountIdOperations;
 	/**
 	 * 
 	 * @param idUser
@@ -44,17 +45,12 @@ public abstract class  Accounts{
 		this.idAccount = idAccount;
 	}
 
-
 	/**
 	 * @return the idUser
 	 */
 	public int getIdUser() {
 		return idUser;
 	}
-
-
-
-
 
 	/**
 	 * @param idUser the idUser to set
@@ -64,23 +60,17 @@ public abstract class  Accounts{
 	}
 
 
-
-
-
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public Date getDate() {
 		return date;
 	}
-
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -97,15 +87,10 @@ public abstract class  Accounts{
 	}
 
 
-
-
 	@Override
 	public String toString() {
 		return "[idAccount = " + idAccount + ", idUser = " + idUser + ", name = " + name + ", date = " + date
 				+ ", amount = " + amount + "]";
 	}
-	
-	
-	
-	
+		
 }

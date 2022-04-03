@@ -172,13 +172,16 @@ public class Operations {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
+	public static void showOperation() {
+		
+	}
 
 
 	@Override
 	public String toString() {
-		return "Operations [idAccountSource=" + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
-				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date + ", type=" + type + "]";
+		return "Operations [type=" + type +  ", idAccountSource=" + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
+				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date +"]";
 	}
 
 
