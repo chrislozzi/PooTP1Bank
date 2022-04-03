@@ -51,19 +51,19 @@ public class RemoteBankImpl  implements IRemoteBank{
 		if(users.containsKey(user.getIdUser())) System.out.println("L'utilisateur : "
 				+ user.toString() + "est déjà enregistré dans la base"); else {
 					users.put(user.getIdUser(), user); addOperation(newOperationId(), new
-							Operations(users.size(), new Date(),"addUser", admin.getIdUser())); }
+							Operations( new Date(),"addUser", admin.getIdUser())); }
 
 	}
 
 	
 
 	@Override
-	public CurrentAccount createCurrentAccount(int idUser, String name, Date date, double amount, int overdraft) {
+	public CurrentAccount createCurrentAccounts(int idUser, String name, Date date, double amount, int overdraft) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public SavingsAccount createSavingAccount(int idUser, String name, Date date, double amount, int interestRate) {
+	public SavingsAccount createSavingAccounts(int idUser, String name, Date date, double amount, int interestRate) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -74,10 +74,10 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return null;
 	}
 	@Override
-	public void addCurrentAccount(Admin admin ,CurrentAccount account,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) {
+	public void addCurrentAccounts(Admin admin ,CurrentAccount account,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) {
 	}
 	@Override
-	public void addSavingAccount(Admin admin, SavingsAccount account, Map<Integer, SavingsAccount> savingsAccounts,
+	public void addSavingAccounts(Admin admin, SavingsAccount account, Map<Integer, SavingsAccount> savingsAccounts,
 			Map<Integer, Operations> operations) {
 		// TODO Auto-generated method stub
 		
@@ -101,7 +101,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 
 	@Override
-	public void removeAccount(Admin admin, int newAccountId) {
+	public void removeAccounts(Admin admin, int newAccountId) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -118,7 +118,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 		return null;
 	}
 
-	public void getAllUser(Map<Integer, Users> users) {
+	public void getAllUsers(Map<Integer, Users> users) {
 
 	}
 
@@ -136,11 +136,20 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 	}
 
-	public void deposit(int idUser, int idAccount, double amount,Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) {
+	public void depositCurrentAccounts(int idUser, int idAccount, double amount,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) {
 
 	}
 
-	public void showBalance(int idUser, int idAccount,Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) { 
+	public void depositSavingsAccounts(int idUser, int idAccount, double amount,
+			Map<Integer, SavingsAccount> savingsAccounts, Map<Integer, Operations> operations) {
+		
+	}
+
+	public void showBalanceCurrentAccounts(int idUser, int idAccount, Map<Integer, CurrentAccount> currentAccounts,
+			Map<Integer, Operations> operations) {
+		
+	}
+	public void showBalanceSavingsAccounts(int idUser, int idAccount,Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) { 
 
 	}
 
@@ -181,14 +190,8 @@ public class RemoteBankImpl  implements IRemoteBank{
 	 * 
 	 * @return
 	 */
-	public Map<Integer, Operations> getOperation() {
+	public Map<Integer, Operations> getOperations() {
 		return operations;
 	}
-
-
-
-
-
-
 
 }

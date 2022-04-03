@@ -132,19 +132,29 @@ public abstract class Users {
 		return null;
 	}
 
-	public void deposit(int idUser, int idAccount, double amount,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) {
+	public void depositCurrentAccounts(int idUser, int idAccount, double amount,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) {
 		if(amount > 0) {			
 			currentAccounts.get(idAccount).setAmount(currentAccounts.get(idAccount).getAmount() + amount);
 			operations.put(newOperationId(operations), new Operations(idAccount, amount, idUser, new Date(), "deposit"));
 			System.out.println("Le montant de "+amount+ " a bien été ajouté.");
+			System.out.println("Votre nouveau solde du compte courant est de :"+ currentAccounts.get(idAccount).getAmount());
 		} else if(amount ==0 || amount<0){
 			System.out.println("Veuillez entrer un montant minimal de 1.");
 		}
 	}
-
+	public void depositSavingsAccounts(int idUser, int idAccount, double amount,Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) {
+		if(amount > 0) {			
+			savingsAccounts.get(idAccount).setAmount(savingsAccounts.get(idAccount).getAmount() + amount);
+			operations.put(newOperationId(operations), new Operations(idAccount, amount, idUser, new Date(), "deposit"));
+			System.out.println("Le montant de "+amount+ " a bien été ajouté.");
+			System.out.println("Votre nouveau solde du compte épargne est de :"+ savingsAccounts.get(idAccount).getAmount());
+		} else if(amount ==0 || amount<0){
+			System.out.println("Veuillez entrer un montant minimal de 1.");
+		}
+	}
 	public void withdraw(int idUser, int idAccount, double amount,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) { //attention au découvert autorisé
 
-		if(currentAccounts.containsKey(idAccount) && amount > 0) {
+		if(amount > 0) {
 
 			// test en fonction du découvert autorisé
 			if(amount <= currentAccounts.get(idAccount).getAmount()+currentAccounts.get(idAccount).getOverdraft()) {
@@ -162,24 +172,39 @@ public abstract class Users {
 		}
 
 	}
-	public void showBalance(int idUser, int idAccount,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) { 
-		if(currentAccounts.containsKey(idAccount) &&  currentAccounts.get(idAccount).getIdUser() == idUser) {
-			System.out.println("Numéro de compte " + idAccount + " : montant -> " + currentAccounts.get(idAccount).getAmount());
+	public void showBalanceCurrentAccounts(int idUser, int idAccount,Map<Integer, CurrentAccount>currentAccounts,Map<Integer, Operations> operations) { 
+		if(currentAccounts.containsKey(idAccount) ) {
+			System.out.println("Numéro de compte courant : " + idAccount + " : montant -> " + currentAccounts.get(idAccount).getAmount());
 			operations.put(newOperationId(operations), new Operations(idAccount, idUser, new Date(), "showBalance"));
-			// liste des opératrions sur le compte
-			for(Operations op : operations.values())
-				if(op.getIdUser() == idUser && (op.getIdAdmin()== 0 )) System.out.println(op);
+			// liste des opérations sur le compte
+			
+			  for(Operations op : operations.values()) if(op.getIdUser() == idUser&&
+			  op.getIdAccountSource()==idAccount) System.out.println(op);
+			 
 		} else {
-			System.out.println("Aucun compte associé.");
+			System.out.println("Aucun compte courant associé.");
+
+		}
+	}
+	public void showBalanceSavingsAccounts(int idUser, int idAccount,Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) { 
+		if(savingsAccounts.containsKey(idAccount)) {
+			System.out.println("Numéro de compte épargne : " + idAccount + " : montant -> " + savingsAccounts.get(idAccount).getAmount());
+			operations.put(newOperationId(operations), new Operations(idAccount, idUser, new Date(), "showBalance"));
+			// liste des opérations sur le compte
+			
+			  for(Operations op : operations.values()) if(op.getIdUser() == idUser&&
+			  op.getIdAccountSource()==idAccount) System.out.println(op);
+			 
+		} else {
+			System.out.println("Aucun compte courant associé.");
 
 		}
 	}
 	public void transfert(int idUser, int idAccount1, int idAccount2, double amount,Map<Integer, CurrentAccount>currentAccounts,
 			Map<Integer, SavingsAccount> savingsAccounts,Map<Integer, Operations> operations) { //attention au découvert autorisé
 
-
-		if(currentAccounts.containsKey(idAccount1) && savingsAccounts.containsKey(idAccount2) && amount > 0) { 
-			if(amount <= currentAccounts.get(idAccount1).getAmount()) { 
+		if( amount > 0) { 
+			if(amount <= currentAccounts.get(idAccount1).getAmount()+currentAccounts.get(idAccount1).getOverdraft()) { 
 
 				currentAccounts.get(idAccount1).setAmount(currentAccounts.get(idAccount1).getAmount() -amount);
 						
@@ -192,8 +217,8 @@ public abstract class Users {
 			else{
 				System.out.println("Votre solde ne permet pas l'opération, saisir un montant moindre.");
 			}
-		}else if(amount ==0 || amount<0){
-			System.out.println("Veuillez entrer un montant minimal de 1.");
+		}else {
+			System.out.println("Une erreur s'est produite, vérifiez les identifiants de compte ainsi que le montant.");
 		}
 
 

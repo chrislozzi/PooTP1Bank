@@ -9,7 +9,6 @@ public class Operations {
 	private int idAccountTarget ;
 	private double amount;
 	private int idUser ;
-	private int idAdmin = 0;
 	private Date date  ;
 	private String type ;
 	
@@ -65,37 +64,10 @@ public class Operations {
 	}
 	
 
-
-	/**
-	 * 
-	 * @param idUser
-	 * @param date
-	 * @param type
-	 * @param idAdmin
-	 */
-	public Operations(int idUser, Date date, String type ,int idAdmin) {					
-		setIdUser(idUser);		
-		setIdAdmin(idAdmin);
+	public Operations( Date date, String type, int idUser) {	
 		setDate(new Date());	
 		setType(type);
-	}
-
-
-
-	/**
-	 * @return the idAdmin
-	 */
-	public int getIdAdmin() {
-		return idAdmin;
-	}
-
-
-
-	/**
-	 * @param idAdmin the idAdmin to set
-	 */
-	public void setIdAdmin(int idAdmin) {
-		this.idAdmin = idAdmin;
+		setIdUser(idUser);	
 	}
 
 
@@ -174,12 +146,15 @@ public class Operations {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "Operations sur le compte numéro : " + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
-				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date + ", type=" + type ;
+				+ amount + ", idUser=" + idUser +  ", date=" + date + ", type=" + type ;
 	}
+
+
+
+
 
 
 
