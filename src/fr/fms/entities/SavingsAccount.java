@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class SavingsAccount extends Accounts{
 
-	private int interestRate;
+	private int interestRate = 2;
 	
 	public SavingsAccount(int idUser, String name, Date date, double amount,int interestRate) {
 		super( idUser, name, date, amount);
@@ -20,7 +20,7 @@ public class SavingsAccount extends Accounts{
 	}
 	@Override
 	public String toString() {
-		return super.toString() + " " + "interestRate= " + interestRate + "]";
+		return "Saving Account " + super.toString() + " " + "interestRate= " + interestRate + "]";
 	}
 
 }

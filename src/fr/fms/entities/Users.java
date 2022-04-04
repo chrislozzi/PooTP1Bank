@@ -1,5 +1,7 @@
 package fr.fms.entities;
 
+import java.util.ArrayList;
+
 public abstract class Users {
 
 	private int idUser;
@@ -10,10 +12,13 @@ public abstract class Users {
 	private int phone; 
 	private String pseudo; 
 	private int password;  
+
+	public static int idUserCount = 0;
+	//public ArrayList <Integer>userIdAccounts;
 	
-	public Users(int idUser, String name, String firstName, String address, String mail, int phone, String pseudo,
-			int password) {	
-		setIdUser(idUser);	
+	public Users( String name, String firstName, String address, String mail, int phone, String pseudo,int password) {	
+		idUserCount ++;
+		setIdUser(idUserCount);	
 		setName(name);		
 		setFirstName(firstName);		
 		setAddress(address);		
@@ -24,9 +29,6 @@ public abstract class Users {
 	}
 
 
-
-
-
 	/**
 	 * @return the idUser
 	 */
@@ -35,18 +37,12 @@ public abstract class Users {
 	}
 
 
-
-
-
 	/**
 	 * @param idUser the idUser to set
 	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
-
-
-
 
 
 	public String getName() {

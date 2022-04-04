@@ -14,10 +14,10 @@ import fr.fms.entities.Users;
  */
 public interface IRemoteBank {
 	public void addUser(Admin admin, Users user);
-	public void removeUser(int idUser);
+	public void removeUser(Admin admin , int newUserId);
 	public  Users getUserById(int idUser);
 	public void addAccount(Admin admin,Accounts account);
-	public void removeAccount(int idAccount);
+	public void removeAccount(Admin admin  ,int newAccountId);
 	public  Accounts getAccountById(int idAccount);	
 	public  void addOperation(int idOperation, Operations  operation);
 	public Operations getOperationById(int idOperation);
@@ -26,6 +26,7 @@ public interface IRemoteBank {
 	public boolean transfert(int idUser,int idAccount1, int idAccount2, double amount);
 	public boolean deposit(int idAccount, int idUser, double amount);
 	public void getAllUserOperation(int idUser);
-	public void getAllUserAccount();
-		
+	public void getAllUserAccount(int idUser);
+	public void getAllUser();
+	public void getAllAccount();
 }

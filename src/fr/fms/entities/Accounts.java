@@ -1,16 +1,17 @@
 package fr.fms.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class  Accounts{
 	
-
+	private int idAccount;
 	private int idUser ;
 	private String name ;
 	private Date date ;
 	private double amount;
-
-	
+	public static int idAccountCount = 0;
+	//public static ArrayList <Integer>accountIdOperations;
 	/**
 	 * 
 	 * @param idUser
@@ -19,6 +20,8 @@ public abstract class  Accounts{
 	 * @param amount
 	 */
 	public Accounts(int idUser, String name, Date date, double amount) {
+		idAccountCount++;
+		setIdAccount(idAccountCount);
 		setIdUser(idUser);		
 		setName(name);		
 		setDate(new Date());	
@@ -28,15 +31,26 @@ public abstract class  Accounts{
 
 
 	/**
+	 * @return the idAccount
+	 */
+	public int getIdAccount() {
+		return idAccount;
+	}
+
+
+	/**
+	 * @param idAccount the idAccount to set
+	 */
+	public void setIdAccount(int idAccount) {
+		this.idAccount = idAccount;
+	}
+
+	/**
 	 * @return the idUser
 	 */
 	public int getIdUser() {
 		return idUser;
 	}
-
-
-
-
 
 	/**
 	 * @param idUser the idUser to set
@@ -46,23 +60,17 @@ public abstract class  Accounts{
 	}
 
 
-
-
-
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public Date getDate() {
 		return date;
 	}
-
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -79,15 +87,10 @@ public abstract class  Accounts{
 	}
 
 
-
-
 	@Override
 	public String toString() {
-		return "[id_user=" + idUser + ", name=" + name + ", date=" + date
-				+ ", amount=" + amount + "]";
+		return "[idAccount = " + idAccount + ", idUser = " + idUser + ", name = " + name + ", date = " + date
+				+ ", amount = " + amount + "]";
 	}
-	
-	
-	
-	
+		
 }
