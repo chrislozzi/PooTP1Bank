@@ -8,10 +8,9 @@ public abstract class  Accounts{
 	private int idAccount;
 	private int idUser ;
 	private String name ;
-	private Date date ;
+	private Date date;
 	private double amount;
-	public static int idAccountCount = 0;
-	//public static ArrayList <Integer>accountIdOperations;
+	public  ArrayList <Integer>accountdOperations;
 	/**
 	 * 
 	 * @param idUser
@@ -20,8 +19,7 @@ public abstract class  Accounts{
 	 * @param amount
 	 */
 	public Accounts(int idUser, String name, Date date, double amount) {
-		idAccountCount++;
-		setIdAccount(idAccountCount);
+		setIdAccount(idAccount);
 		setIdUser(idUser);		
 		setName(name);		
 		setDate(new Date());	

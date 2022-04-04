@@ -2,8 +2,7 @@ package fr.fms.entities;
 
 import java.util.Date;
 
-public class Operations {
-	
+public abstract class Operations {
 	
 	private int idAccountSource ;
 	private int idAccountTarget ;
@@ -23,7 +22,7 @@ public class Operations {
 	 * @param type
 	 */
 	public Operations(int idAccountSource, int idAccountTarget,int idUser, double amount, Date date, String type) {			
-				
+		
 		setIdAccountSource(idAccountSource);		
 		setIdAccountTarget(idAccountTarget);		
 		setIdUser(idUser);		
@@ -33,7 +32,7 @@ public class Operations {
 	}
 	
 	
-
+	
 	/**
 	 * @param idAccountSource
 	 * @param amount
@@ -78,24 +77,6 @@ public class Operations {
 		setIdAdmin(idAdmin);
 		setDate(new Date());	
 		setType(type);
-	}
-
-
-
-	/**
-	 * @return the idAdmin
-	 */
-	public int getIdAdmin() {
-		return idAdmin;
-	}
-
-
-
-	/**
-	 * @param idAdmin the idAdmin to set
-	 */
-	public void setIdAdmin(int idAdmin) {
-		this.idAdmin = idAdmin;
 	}
 
 

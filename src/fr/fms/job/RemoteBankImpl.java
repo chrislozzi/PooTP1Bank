@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.fms.entities.Accounts;
-import fr.fms.entities.Admin;
 import fr.fms.entities.CurrentAccount;
 import fr.fms.entities.Operations;
 import fr.fms.entities.Users;
@@ -17,24 +16,19 @@ import fr.fms.entities.Users;
  * @author Stagiaires09
  *
  */
-public class RemoteBankImpl  implements IRemoteBank{
-	
+public class RemoteBankImpl  implements IRemoteBank{	
+	private int idAccount = 1;
+	private int isOperation = 1;
+	private int idUser = 1;
 	private Map<Integer, Accounts> accounts;
 	private Map<Integer, Users> users;
-	private Map<Integer, Operations> operations;
 
 	public RemoteBankImpl() {
 		accounts =new HashMap<>();
 		users =new HashMap<>();
-		operations =new HashMap<>();
-	}
-
-	public int newOperationId() {
-		return operations.size() + 1;
-
 	}
 	@Override
-	public void addUser(Admin admin, Users user) {
+	public void addUser(int idUser, Users user) {
 
 		if(users.containsKey(user.getIdUser()))	
 			System.out.println("L'utilisateur : " + user.toString() + "est déjà enregistré dans la base");
@@ -44,23 +38,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 		}	
 
 	}
-	@Override
-	public void removeUser(Admin admin, int userId) {
-
-		if (users.containsKey(userId)) {
-			users.remove(userId);
-			System.out.println("Client supprimé.");
-			addOperation(newOperationId(), new Operations(users.size(), new Date(),"remove", admin.getIdUser()));
-		} else {
-			System.out.println("Client inexistant.");
-		}
-
-	}
-	@Override
-	public Users getUserById(int idUser) {
-
-		return users.get(idUser);
-	}
+	
 	@Override
 	public void addAccount(Admin admin ,Accounts account) {
 
@@ -72,47 +50,13 @@ public class RemoteBankImpl  implements IRemoteBank{
 		}
 
 	}
-	@Override
-	public void removeAccount(Admin admin , int newAccountId) {
-		if (accounts.containsKey(newAccountId)) {
-			System.out.println("Compte supprimé.");
-			addOperation(newOperationId(), new Operations(newAccountId ,admin.getIdUser() ,new Date(),"removeAccount" ));
-			accounts.remove(newAccountId);
-		} else {
-			System.out.println("Compte inexistant.");
-		}
-
-
-	}
+	
 	@Override
 	public Accounts getAccountById(int idAccount) {
 		// TODO Auto-generated method stub
 		return accounts.get(idAccount);
 	}
-	@Override
-	public void addOperation(int idOperation, Operations operation) {
 
-		operations.put(idOperation,operation);
-	}
-	@Override
-	public Operations getOperationById(int idOperation) {
-		// TODO Auto-generated method stub
-		return operations.get(idOperation);
-	}
-	@Override
-	public void getAllUserOperation(int idUser) {
-		System.out.println("Liste des opérations de " + getUserById(idUser).getName() + " " + getUserById(idUser).getFirstName() + " :");
-		for(Operations userOperation : operations.values())
-			if(userOperation.getIdUser() == idUser && (userOperation.getIdAdmin()== 0 )) System.out.println(userOperation);
-
-	}
-	@Override
-	public void getAllUserAccount(int idUser) {
-		System.out.println("Liste des comptes de l'utilisateur" + getUserById(idUser) +" :");
-		accounts.forEach((key,value)->{	
-			System.out.println("AccountKey : "+key+" ---> "+value);		
-		});
-	} 
 	@Override
 	public void getAllUser() {
 		System.out.println("Liste des utilisateurs :");
@@ -121,39 +65,6 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 		});
 
-	}
-	@Override
-	public void getAllAccount() {
-		System.out.println("Liste des comptes :");
-		accounts.forEach((key,value)->{	
-			System.out.println("AccountKey : "+key+" ---> "+value);
-
-		});
-
-	}
-
-	@Override
-	public boolean deposit(int idAccount, int idUser, double amount) {
-		if(amount > 0) {			
-			getAccountById(idAccount).setAmount(getAccountById(idAccount).getAmount() + amount);
-			addOperation(newOperationId(), new Operations(idAccount, amount, idUser, new Date(), "deposit"));
-			return true;	
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean showBalance(int idUser, int idAccount) { 
-		if(accounts.containsKey(idAccount) &&  getAccountById(idAccount).getIdUser() == idUser) {
-			System.out.println("Numéro de compte " + idAccount + " : montant -> " + getAccountById(idAccount).getAmount());
-			addOperation(newOperationId(), new Operations(idAccount, idUser, new Date(), "showBalance"));
-			
-			return true;
-		} else {
-			System.out.println("Aucun compte associé.");
-			return false;
-		}
 	}
 
 	@Override
@@ -193,5 +104,15 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 		}
 		return false;
+	}
+	@Override
+	public void showAccount(int idAccount) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void addAccount(int userId, Accounts account) {
+		// TODO Auto-generated method stub
+		
 	}
 }

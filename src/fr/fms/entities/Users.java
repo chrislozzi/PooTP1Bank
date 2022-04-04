@@ -1,9 +1,9 @@
 package fr.fms.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public abstract class Users {
-
+public class Users {
 	private int idUser;
 	private String name  ;
 	private String firstName ;
@@ -11,24 +11,31 @@ public abstract class Users {
 	private  String mail; 
 	private int phone; 
 	private String pseudo; 
-	private int password;  
+	private Date date;
+	private ArrayList<Integer> userAccounts;
 
 	public static int idUserCount = 0;
 	//public ArrayList <Integer>userIdAccounts;
 	
-	public Users( String name, String firstName, String address, String mail, int phone, String pseudo,int password) {	
-		idUserCount ++;
+	public Users( String name, String firstName, String address, String mail, int phone, String pseudo) {	
 		setIdUser(idUserCount);	
 		setName(name);		
 		setFirstName(firstName);		
 		setAddress(address);		
 		setMail(mail);		
 		setPhone(phone);	
-		setPseudo(pseudo);		
-		setPassword(password);			
+		setPseudo(pseudo);	
+		
 	}
 
 
+	/**
+	 * @param idUser the idUser to set
+	 */
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+	
 	/**
 	 * @return the idUser
 	 */
@@ -38,10 +45,34 @@ public abstract class Users {
 
 
 	/**
-	 * @param idUser the idUser to set
+	 * @return the date
 	 */
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public Date getDate() {
+		return date;
+	}
+
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+	/**
+	 * @return the userAccounts
+	 */
+	public ArrayList<Integer> getUserAccounts() {
+		return userAccounts;
+	}
+
+
+	/**
+	 * @param userAccounts the userAccounts to set
+	 */
+	public void setUserAccounts(ArrayList<Integer> userAccounts) {
+		this.userAccounts = userAccounts;
 	}
 
 
@@ -103,20 +134,6 @@ public abstract class Users {
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
-
-
-	public int getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(int password) {
-		this.password = password;
-	}
-
-
-
-
 
 	@Override
 	public String toString() {
