@@ -4,10 +4,11 @@ import java.util.Date;
 
 public class SavingsAccount extends Accounts{
 
-	private int interestRate = 2;
-	
-	public SavingsAccount(int idUser, String name, Date date, double amount,int interestRate) {
-		super( idUser, name, date, amount);
+	private int interestRate;
+
+
+	public SavingsAccount(long idAccount, Date date, double amount, Users user) {
+		super(idAccount, date, amount, user);
 		setInterestRate(interestRate);
 	}
 

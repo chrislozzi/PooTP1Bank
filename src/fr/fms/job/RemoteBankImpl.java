@@ -3,13 +3,18 @@
  */
 package fr.fms.job;
 
+import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.fms.entities.Account;
 import fr.fms.entities.Accounts;
 import fr.fms.entities.CurrentAccount;
 import fr.fms.entities.Operations;
+import fr.fms.entities.Transaction;
+import fr.fms.entities.Transfert;
 import fr.fms.entities.Users;
 
 /**
@@ -17,30 +22,28 @@ import fr.fms.entities.Users;
  *
  */
 public class RemoteBankImpl  implements IRemoteBank{	
-	private int idAccount = 1;
-	private int isOperation = 1;
-	private int idUser = 1;
-	private Map<Integer, Accounts> accounts;
-	private Map<Integer, Users> users;
+	
+	
+	private Map<Long, Accounts> accounts;
+	private Map<Long, Users> users;
 
+	private long numOperation;
+	
 	public RemoteBankImpl() {
 		accounts =new HashMap<>();
 		users =new HashMap<>();
-	}
-	@Override
-	public void addUser(int idUser, Users user) {
-
-		if(users.containsKey(user.getIdUser()))	
-			System.out.println("L'utilisateur : " + user.toString() + "est déjà enregistré dans la base");
-		else {
-			users.put(user.getIdUser(), user);
-			addOperation(newOperationId(), new Operations(users.size(), new Date(),"addUser", admin.getIdUser()));
-		}	
-
+		numOperation = 1;
 	}
 	
+	
 	@Override
-	public void addAccount(Admin admin ,Accounts account) {
+	public Accounts consultAccount(long accountId) {
+		Accounts account = accounts.get(accountId);
+		if(account == null)	System.out.println("Vous demandez un compte inexistant !");
+		return account;
+	}
+	@Override
+	public void addAccount(Accounts account) {
 
 		if(accounts.containsValue(account))	
 			System.out.println("Le compte : " + account.toString() + "est déjà enregistré dans la base");
@@ -51,24 +54,11 @@ public class RemoteBankImpl  implements IRemoteBank{
 
 	}
 	
-	@Override
-	public Accounts getAccountById(int idAccount) {
-		// TODO Auto-generated method stub
-		return accounts.get(idAccount);
-	}
+	
+
 
 	@Override
-	public void getAllUser() {
-		System.out.println("Liste des utilisateurs :");
-		users.forEach((key,value)->{	
-			System.out.println("CustomerKey : "+key+" ---> "+value);
-
-		});
-
-	}
-
-	@Override
-	public boolean withdraw(int idAccount, int idUser, double amount) { 
+	public boolean withdraw(long idAccount, double amount) { 
 		if(accounts.containsKey(idAccount) && amount > 0) {	
 			if(getAccountById(idAccount) instanceof CurrentAccount) {	
 				if( 0 <= (getAccountById(idAccount).getAmount() - amount + ((CurrentAccount) getAccountById(idAccount)).getOverdraft())) {
@@ -83,7 +73,7 @@ public class RemoteBankImpl  implements IRemoteBank{
 	}
 
 	@Override
-	public boolean transfert(int idUser, int idAccountSource, int idAccountTarget, double amount) {
+	public void transfert(long idAccount1, long idAccount2, double amount) {
 
 		if(accounts.containsKey(idAccountSource) && amount > 0) {
 			if(getAccountById(idAccountSource) instanceof CurrentAccount) {
@@ -92,27 +82,47 @@ public class RemoteBankImpl  implements IRemoteBank{
 					getAccountById(idAccountTarget).setAmount(getAccountById(idAccountTarget).getAmount() + amount);
 					
 					addOperation(newOperationId(), new Operations(idAccountSource, idAccountTarget, idUser, amount, new Date(), "transfert"));
-					return true;}
+					
 
 			}else if(0 <= (getAccountById(idAccountSource).getAmount() - amount)) {
 				getAccountById(idAccountSource).setAmount(getAccountById(idAccountSource).getAmount() - amount);
 				getAccountById(idAccountTarget).setAmount(getAccountById(idAccountTarget).getAmount() + amount);
 				
-				addOperation(newOperationId(), new Operations(idAccountSource, idAccountTarget, idUser, amount, new Date(), "transfert"));
-				return true;
+				addOperation(newOperationId(), new Operations(idAccount1, idAccount2, amount, new Date(), "transfert"));
+				
 			}
 
 		}
-		return false;
+		
 	}
+		}
+
 	@Override
-	public void showAccount(int idAccount) {
+	public void showBalance(int idUser, int idAccount) {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
-	public void addAccount(int userId, Accounts account) {
-		// TODO Auto-generated method stub
+	public void deposit(long idAccount, double amount) {
+		
 		
 	}
+	public void pay(long accountId, double amount) {				// versement
+		Accounts account = consultAccount(accountId);
+		if(account != null)	{
+			account.setBalance(account.getBalance() + amount);
+			Operations trans = new Transfert(numTransactions++,new Date(),amount,accountId);
+			account.getListTransactions().add(trans);				// création + ajout d'une opération de versement
+		}
+	}
+	
+	@Override
+	public ArrayList<Operations> listOperations(long accountId) {
+		return consultAccount(accountId).getAccountdOperations();
+		
+	}
+
+
+
 }

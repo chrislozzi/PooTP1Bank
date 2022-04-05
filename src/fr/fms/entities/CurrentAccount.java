@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class CurrentAccount  extends Accounts{
 
-	private int overdraft = 300;
+	private int overdraft;
 	
-	public CurrentAccount(int idUser, String name, Date date, double amount, int overdraft) {
-		super(idUser, name, date, amount);		
-		setOverdraft( overdraft);
+	
+	public CurrentAccount(long idAccount, Date date, double amount, Users user) {
+		super(idAccount, date, amount, user);
+		setOverdraft(overdraft);
 	}
 
 	public int getOverdraft() {

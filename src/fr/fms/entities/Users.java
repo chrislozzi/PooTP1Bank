@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Users {
-	private int idUser;
+	private long idUser;
 	private String name  ;
 	private String firstName ;
 	private  String address ;
@@ -12,10 +12,9 @@ public class Users {
 	private int phone; 
 	private String pseudo; 
 	private Date date;
-	private ArrayList<Integer> userAccounts;
+	private ArrayList<Accounts> userAccounts;
 
-	public static int idUserCount = 0;
-	//public ArrayList <Integer>userIdAccounts;
+	public static long idUserCount = 0;
 	
 	public Users( String name, String firstName, String address, String mail, int phone, String pseudo) {	
 		setIdUser(idUserCount);	
@@ -25,21 +24,21 @@ public class Users {
 		setMail(mail);		
 		setPhone(phone);	
 		setPseudo(pseudo);	
-		
+		this.userAccounts=new ArrayList<Accounts>();
 	}
 
 
 	/**
 	 * @param idUser the idUser to set
 	 */
-	public void setIdUser(int idUser) {
+	public void setIdUser(long idUser) {
 		this.idUser = idUser;
 	}
 	
 	/**
 	 * @return the idUser
 	 */
-	public int getIdUser() {
+	public long getIdUser() {
 		return idUser;
 	}
 
@@ -63,7 +62,7 @@ public class Users {
 	/**
 	 * @return the userAccounts
 	 */
-	public ArrayList<Integer> getUserAccounts() {
+	public ArrayList<Accounts> getUserAccounts() {
 		return userAccounts;
 	}
 
@@ -71,7 +70,7 @@ public class Users {
 	/**
 	 * @param userAccounts the userAccounts to set
 	 */
-	public void setUserAccounts(ArrayList<Integer> userAccounts) {
+	public void setUserAccounts(ArrayList<Accounts> userAccounts) {
 		this.userAccounts = userAccounts;
 	}
 

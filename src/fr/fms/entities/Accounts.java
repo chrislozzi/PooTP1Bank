@@ -1,69 +1,55 @@
 package fr.fms.entities;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 
 public abstract class  Accounts{
 	
-	private int idAccount;
-	private int idUser ;
-	private String name ;
+	private long idAccount;private int idUser ;
 	private Date date;
 	private double amount;
-	public  ArrayList <Integer>accountdOperations;
+	private Users user;
+	public  ArrayList <Operations>accountdOperations;
+	
 	/**
 	 * 
-	 * @param idUser
+	 * @param idAccount
 	 * @param name
 	 * @param date
 	 * @param amount
+	 * @param user
 	 */
-	public Accounts(int idUser, String name, Date date, double amount) {
-		setIdAccount(idAccount);
-		setIdUser(idUser);		
-		setName(name);		
+ Accounts(long idAccount, Date date, double amount,Users user) {
+	setIdAccount(idAccount);
 		setDate(new Date());	
-		setAmount(amount);		
+		setAmount(amount);
+		setUser(user);
+		this.accountdOperations=new ArrayList <Operations>();
 		
 	}
+ 
+	@Override
+	public String toString() {
+		return "Accounts [idAccount=" + idAccount + ", idUser=" + idUser + ", date=" + date + ", amount=" + amount
+				+ ", user=" + user + ", accountdOperations=" + accountdOperations + "]";
+	}
 
-
-	/**
-	 * @return the idAccount
-	 */
-	public int getIdAccount() {
+	public long getIdAccount() {
 		return idAccount;
 	}
 
 
-	/**
-	 * @param idAccount the idAccount to set
-	 */
-	public void setIdAccount(int idAccount) {
+	public void setIdAccount(long idAccount) {
 		this.idAccount = idAccount;
 	}
 
-	/**
-	 * @return the idUser
-	 */
 	public int getIdUser() {
 		return idUser;
 	}
 
-	/**
-	 * @param idUser the idUser to set
-	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Date getDate() {
@@ -74,21 +60,30 @@ public abstract class  Accounts{
 		this.date = date;
 	}
 
-
 	public double getAmount() {
 		return amount;
 	}
-
 
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
-
-	@Override
-	public String toString() {
-		return "[idAccount = " + idAccount + ", idUser = " + idUser + ", name = " + name + ", date = " + date
-				+ ", amount = " + amount + "]";
+	public Users getUser() {
+		return user;
 	}
-		
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public ArrayList<Operations> getAccountdOperations() {
+		return accountdOperations;
+	}
+
+	public void setAccountdOperations(ArrayList<Operations> accountdOperations) {
+		this.accountdOperations = accountdOperations;
+	}
+
+
+
 }

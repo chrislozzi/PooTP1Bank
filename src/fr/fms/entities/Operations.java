@@ -3,169 +3,93 @@ package fr.fms.entities;
 import java.util.Date;
 
 public abstract class Operations {
-	
-	private int idAccountSource ;
-	private int idAccountTarget ;
+
+	private long transactionId;
+	private long idAccountSource ;
+	private long idAccountTarget ;
 	private double amount;
-	private int idUser ;
-	private int idAdmin = 0;
 	private Date date  ;
-	private String type ;
-	
+
+
 	/**
 	 * 
+	 * @param transactionId
 	 * @param idAccountSource
 	 * @param idAccountTarget
-	 * @param idUser
 	 * @param amount
 	 * @param date
-	 * @param type
 	 */
-	public Operations(int idAccountSource, int idAccountTarget,int idUser, double amount, Date date, String type) {			
-		
-		setIdAccountSource(idAccountSource);		
-		setIdAccountTarget(idAccountTarget);		
-		setIdUser(idUser);		
+	public Operations(long transactionId,long  idAccountSource, long idAccountTarget, double amount, Date date) {			
+
+		setTransactionId(transactionId);
+		setIdAccountSource(idAccountSource);
+		setIdAccountTarget(idAccountTarget);
 		setAmount(amount);
-		setDate(new Date());	
-		setType(type);
-	}
-	
-	
-	
-	/**
-	 * @param idAccountSource
-	 * @param amount
-	 * @param idUser
-	 * @param date
-	 * @param type
-	 */
-	public Operations(int idAccountSource, double amount, int idUser, Date date, String type) {
-		setIdAccountSource(idAccountSource);				
-		setIdUser(idUser);		
-		setAmount(amount);
-		setDate(new Date());	
-		setType(type);
+		setDate(date);
 	}
 
 
-
-	/**
-	 * @param idAccountSource
-	 * @param idUser
-	 * @param date
-	 * @param type
-	 */
-	public Operations(int idAccountSource, int idUser, Date date, String type) {
-		setIdAccountSource(idAccountSource);				
-		setIdUser(idUser);				
-		setDate(new Date());	
-		setType(type);
-	}
 	
 
-
-	/**
-	 * 
-	 * @param idUser
-	 * @param date
-	 * @param type
-	 * @param idAdmin
-	 */
-	public Operations(int idUser, Date date, String type ,int idAdmin) {					
-		setIdUser(idUser);		
-		setIdAdmin(idAdmin);
-		setDate(new Date());	
-		setType(type);
-	}
-
-
-
-	/**
-	 * @return the idAccountSource
-	 */
-	public int getIdAccountSource() {
+	public long getIdAccountSource() {
 		return idAccountSource;
 	}
-	/**
-	 * @param idAccountSource the idAccountSource to set
-	 */
-	public void setIdAccountSource(int idAccountSource) {
+
+
+	public void setIdAccountSource(long idAccountSource) {
 		this.idAccountSource = idAccountSource;
 	}
-	/**
-	 * @return the idAccountTarget
-	 */
-	public int getIdAccountTarget() {
+
+
+	public long getIdAccountTarget() {
 		return idAccountTarget;
 	}
-	/**
-	 * @param idAccountTarget the idAccountTarget to set
-	 */
-	public void setIdAccountTarget(int idAccountTarget) {
+
+
+	public void setIdAccountTarget(long idAccountTarget) {
 		this.idAccountTarget = idAccountTarget;
 	}
-	/**
-	 * @return the amount
-	 */
+
+
 	public double getAmount() {
 		return amount;
 	}
-	/**
-	 * @param amount the amount to set
-	 */
+
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	/**
-	 * @return the idUser
-	 */
-	public int getIdUser() {
-		return idUser;
-	}
-	/**
-	 * @param idUser the idUser to set
-	 */
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-	/**
-	 * @return the date
-	 */
+
+
 	public Date getDate() {
 		return date;
 	}
-	/**
-	 * @param date the date to set
-	 */
+
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
 	/**
-	 * @return the type
+	 * @return the transactionId
 	 */
-	public String getType() {
-		return type;
-	}
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public static void showOperation() {
-		
+	public long getTransactionId() {
+		return transactionId;
 	}
 
 
+	/**
+	 * @param transactionId the transactionId to set
+	 */
+	public void setTransactionId(long transactionId) {
+		this.transactionId = transactionId;
+	}
 	@Override
 	public String toString() {
-		return "Operations [type=" + type +  ", idAccountSource=" + idAccountSource + ", idAccountTarget=" + idAccountTarget + ", amount="
-				+ amount + ", idUser=" + idUser + ", idAdmin=" + idAdmin + ", date=" + date +"]";
+		return "Operations [transactionId=" + transactionId + ", idAccountSource=" + idAccountSource
+				+ ", idAccountTarget=" + idAccountTarget + ", amount=" + amount + ", date=" + date 
+				+ "]";
 	}
 
-
-
-	
 }
